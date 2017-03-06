@@ -48,20 +48,25 @@ public class SudokuSolverImpl implements SudokuSolver {
      * method is based on backTracking. The method will iterate each cell of the
      * sudoku, When a blank cell is found, Method will try putting each number
      * from 1 to 9, until it found a consistent one. Method will call itself
-     * recurssively until it finds a inconsistency. Method will back track and
+     * recurssively until it finds an inconsistency. Method will back track and
      * revert the change and continue with next possible number.
      *
      */
     private boolean solveSudoku(int[][] board) {
+        //Iterate throught each cell
         for (int r = 0; r < board.length; r++) {
             for (int c = 0; c < board[0].length; c++) {
                 if (board[r][c] == 0) {
+                    //if cell is blank find a number suitable for the cell 
                     for (int k = 1; k <= 9; k++) {
                         if (isBoardConsistent(board, r, c, k)) {
+                            //add the number to cell and call the method to solve next cell 
                             board[r][c] = (k);
                             if (solveSudoku(board)) {
+                                //once the board solved completely return true 
                                 return true;
                             } else {
+                                //if unable to solve the current cell, revert the last assignment
                                 board[r][c] = 0;
                             }
                         }
